@@ -24,9 +24,6 @@
   "notBefore": 0,
   "revokeRefreshToken": false,
   "refreshTokenMaxReuse": 0,
-  "refreshTokenLifespan": 1800,
-  "refreshTokenLifespanOffline": 2592000,
-  "refreshTokenLifespanRememberMe": 0,
   "clientScopes": [],
   "defaultDefaultClientScopes": [
     "web-origins",
