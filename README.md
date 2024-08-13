@@ -39,6 +39,7 @@ Once the containers are up and running, you can access the Keycloak Admin Consol
 - Default Admin Credentials:
   - Username: `admin`
   - Password: `admin`
+
 You can log in with the admin credentials provided above, navigate to the example-realm, and manage the imported configurations.
 
 ## Managing the Environment
