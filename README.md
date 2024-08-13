@@ -15,7 +15,7 @@ To start the `Keycloak` and `MySQL` environment, open a terminal, navigate to th
 
 ```bash
 docker-compose build && docker-compose up -d
-
+```
 This script will start:
 
 - A MySQL Docker container configured to work with Keycloak.
@@ -47,3 +47,4 @@ You can log in with the admin credentials provided above, navigate to the exampl
 To stop and remove all Docker containers and networks created by this setup, run the following script:
 ```bash
 ./shutdown-environment.sh
+```
