@@ -1,40 +1,49 @@
-# keycloak-mysql
+# Keycloak-MySQL Project
 
-The goal of this project is to use [`Keycloak`](https://www.keycloak.org/) and [`Mysql`](https://www.mysql.com/) and import an existing realm.
+This project demonstrates how to set up and configure a `Keycloak` identity and access management solution with a `MySQL` database, including the import of an existing realm.
 
-## Starting Environment
+## Prerequisites
 
-Open a terminal and inside the root folder run:
+Before starting, ensure that you have the following installed:
 
-```
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+
+## Starting the Environment
+
+To start the `Keycloak` and `MySQL` environment, open a terminal, navigate to the root folder of the project, and run:
+
+```bash
 docker-compose build && docker-compose up -d
-```
 
 This script will start:
 
-- one `Mysql` Docker container;
-- one `Keycloak` Docker container;
+- A MySQL Docker container configured to work with Keycloak.
+- A Keycloak Docker container that is set up to connect to the MySQL database.
 
 ## Configuring Keycloak
 
-By adding the flag `--import-realm` the `realm-export.json` inside the `keycloak-ini` folder will be configured in the boot process of the `keycloak`container.
+The `Keycloak` container is configured to import an existing realm during its startup. By adding the `--import-realm` flag, the `realm-export.json` file located in the `keycloak-ini` folder will be automatically imported.
 
-The realm will have:
+Imported Realm Configuration
+Upon successful startup, `Keycloak` will have the following configurations:
 
-- create `example-realm` realm;
-- create `example-client` client;
-- create `test-user` user;
+Realm: `example-realm`
+Client: `example-client`
+User: `test-user`
 
-## Useful Links & Commands
+**Accessing Keycloak** 
+Once the containers are up and running, you can access the Keycloak Admin Console at:
 
-- **Keycloak**
+URL: http://localhost:8080
+Default Admin Credentials:
+Username: `admin`
+Password: `admin`
+You can log in with the admin credentials provided above, navigate to the example-realm, and manage the imported configurations.
 
-  The `Keycloak` website is at http://localhost:8080
+## Managing the Environment
 
-## Cleanup
-
-To remove the all docker image created, simply go to a terminal and run the following script:
-
-```
+**Shutting Down**
+To stop and remove all Docker containers and networks created by this setup, run the following script:
+```bash
 ./shutdown-environment.sh
-```
