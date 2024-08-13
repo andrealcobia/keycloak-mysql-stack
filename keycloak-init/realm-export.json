@@ -1,42 +1,98 @@
 {
-  "realm": "example-realm",
+  "id": "myrealm",
+  "realm": "myrealm",
+  "displayName": "My Realm",
   "enabled": true,
-  "users": [
-    {
-      "username": "test-user",
-      "enabled": true,
-      "emailVerified": true,
-      "firstName": "Test",
-      "lastName": "User",
-      "email": "test.user@example.com",
-      "credentials": [
-        {
-          "type": "password",
-          "value": "password",
-          "temporary": false
-        }
-      ]
-    }
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+  "accessTokenLifespan": 300,
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 36000,
+  "offlineSessionIdleTimeout": 2592000,
+  "offlineSessionMaxLifespanEnabled": false,
+  "clientSessionIdleTimeout": 0,
+  "clientSessionMaxLifespan": 0,
+  "accessCodeLifespan": 60,
+  "accessCodeLifespanUserAction": 300,
+  "accessCodeLifespanLogin": 1800,
+  "actionTokenGeneratedByAdminLifespan": 43200,
+  "actionTokenGeneratedByUserLifespan": 300,
+  "notBefore": 0,
+  "revokeRefreshToken": false,
+  "refreshTokenMaxReuse": 0,
+  "refreshTokenLifespan": 1800,
+  "refreshTokenLifespanOffline": 2592000,
+  "refreshTokenLifespanRememberMe": 0,
+  "clientScopes": [],
+  "defaultDefaultClientScopes": [
+    "web-origins",
+    "role_list",
+    "profile",
+    "roles",
+    "email"
+  ],
+  "defaultOptionalClientScopes": [
+    "phone",
+    "address",
+    "offline_access",
+    "microprofile-jwt"
   ],
   "clients": [
     {
-      "clientId": "example-client",
+      "clientId": "spring-boot-client",
+      "name": "Spring Boot Client",
+      "surrogateAuthRequired": false,
       "enabled": true,
-      "protocol": "openid-connect",
       "clientAuthenticatorType": "client-secret",
-      "secret": "example-secret",
-      "redirectUris": ["http://localhost:8080/*"],
-      "webOrigins": ["*"],
-      "publicClient": false,
-      "directAccessGrantsEnabled": true,
-      "serviceAccountsEnabled": true,
-      "standardFlowEnabled": true,
-      "implicitFlowEnabled": false,
+      "secret": "your-client-secret-here",
+      "redirectUris": [
+        "http://localhost:8080/*"
+      ],
+      "webOrigins": [
+        "*"
+      ],
+      "notBefore": 0,
       "bearerOnly": false,
       "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "saml.assertion.signature": "false",
+        "saml.multivalued.roles": "false",
+        "saml.force.post.binding": "false",
+        "saml.client.signature": "false",
+        "tls.client.certificate.bound.access.tokens": "false",
+        "saml.authnstatement": "false",
+        "display.on.consent.screen": "false",
+        "pkce.code.challenge.method": "S256",
+        "saml.onetimeuse.condition": "false"
+      },
+      "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": true,
       "nodeReRegistrationTimeout": -1,
       "protocolMappers": [
+        {
+          "name": "Client ID",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usersessionmodel-note-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.session.note": "clientId",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "clientId",
+            "jsonType.label": "String"
+          }
+        },
         {
           "name": "roles",
           "protocol": "openid-connect",
@@ -44,15 +100,114 @@
           "consentRequired": false,
           "config": {
             "multivalued": "true",
-            "user.attribute": "foo",
-            "claim.name": "roles",
-            "jsonType.label": "String",
+            "userinfo.token.claim": "true",
             "id.token.claim": "true",
             "access.token.claim": "true",
-            "userinfo.token.claim": "true"
+            "claim.name": "roles",
+            "jsonType.label": "String"
           }
         }
-      ]
+      ],
+      "defaultClientScopes": [
+        "web-origins",
+        "role_list",
+        "profile",
+        "roles",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "phone",
+        "address",
+        "offline_access",
+        "microprofile-jwt"
+      ],
+      "access": {
+        "view": true,
+        "configure": true,
+        "manage": true
+      }
     }
-  ]
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "user",
+        "description": "Default role for authenticated users",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "myrealm"
+      },
+      {
+        "name": "admin",
+        "description": "Admin role for managing the application",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "myrealm"
+      }
+    ],
+    "client": {}
+  },
+  "groups": [],
+  "defaultGroups": [],
+  "users": [
+    {
+      "id": "user-id",
+      "username": "user",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "User",
+      "lastName": "Example",
+      "email": "user@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password",
+          "temporary": false
+        }
+      ],
+      "requiredActions": [],
+      "realmRoles": [
+        "user"
+      ],
+      "clientRoles": {},
+      "groups": []
+    },
+    {
+      "id": "admin-id",
+      "username": "admin",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Admin",
+      "lastName": "Example",
+      "email": "admin@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "adminpassword",
+          "temporary": false
+        }
+      ],
+      "requiredActions": [],
+      "realmRoles": [
+        "admin"
+      ],
+      "clientRoles": {},
+      "groups": []
+    }
+  ],
+  "identityProviders": [],
+  "internationalizationEnabled": true,
+  "supportedLocales": [
+    "en"
+  ],
+  "browserFlow": "browser",
+  "registrationFlow": "registration",
+  "directGrantFlow": "direct grant",
+  "resetCredentialsFlow": "reset credentials",
+  "clientAuthenticationFlow": "clients",
+  "dockerAuthenticationFlow": "docker auth",
+  "attributes": {
+    "frontendUrl": "http://localhost:8080/auth"
+  },
+  "keycloakVersion": "25.0.2"
 }
