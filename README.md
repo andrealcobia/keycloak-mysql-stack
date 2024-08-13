@@ -28,17 +28,17 @@ The `Keycloak` container is configured to import an existing realm during its st
 Imported Realm Configuration
 Upon successful startup, `Keycloak` will have the following configurations:
 
-Realm: `example-realm`
-Client: `example-client`
-User: `test-user`
+- Realm: `example-realm`
+- Client: `example-client`
+- User: `test-user`
 
 **Accessing Keycloak** 
 Once the containers are up and running, you can access the Keycloak Admin Console at:
 
-URL: http://localhost:8080
-Default Admin Credentials:
-Username: `admin`
-Password: `admin`
+- URL: http://localhost:8080
+- Default Admin Credentials:
+  - Username: `admin`
+  - Password: `admin`
 You can log in with the admin credentials provided above, navigate to the example-realm, and manage the imported configurations.
 
 ## Managing the Environment
